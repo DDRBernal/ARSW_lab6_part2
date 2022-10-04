@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Set;
 
 import edu.eci.arsw.blueprints.model.Blueprint;
+import edu.eci.arsw.blueprints.model.Point;
 import edu.eci.arsw.blueprints.services.BlueprintsServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -61,14 +62,56 @@ public class BlueprintAPIController {
     }
 
     //@GetMapping("/blueprints/{author}/{bpname}")
-    @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity<?> updateNewBlueprint(@PathVariable Blueprint bp, @PathVariable String author, @PathVariable String bpname){
+    @RequestMapping(method = RequestMethod.PUT, value="{bpauthor}/{bpnameold}/{author}/{bpname}")
+    public ResponseEntity<?> updateNewBlueprint(@PathVariable String bpnameold, @PathVariable String bpauthor, @PathVariable String author, @PathVariable String bpname){
         try {
-            blueprintsServices.updateBlueprint(bp,author,bpname);
+            blueprintsServices.updateBlueprint(bpnameold,bpauthor,author,bpname);
+            return new ResponseEntity<>(HttpStatus.CREATED);
+        } catch (BlueprintsPersistenceException e) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+    }
+
+    //doc/BlueprintPostTry/"{'x':140,'y':140},{'x':115,'y':115}"
+    @RequestMapping(method = RequestMethod.POST, value="{author}/{bpname}/{points}")
+    public ResponseEntity<?> addNewBlueprint(@PathVariable String author, @PathVariable String bpname, @PathVariable String points){
+        try {
+            Point[] pts1=convertStringtoObject(points);
+            Blueprint bp=new Blueprint(author, bpname,pts1);
+            blueprintsServices.addNewBlueprint(bp);
             return new ResponseEntity<>(HttpStatus.ACCEPTED);
         } catch (BlueprintsPersistenceException e) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
+    }
+
+    /**
+     *
+     * @param points
+     * @return
+     */
+    private Point[] convertStringtoObject(String points){
+        String[] strArray = points.split(":");
+        Point[] pts1=new Point[strArray.length/2];
+        int index  = 0;
+        for (int i = 1; i< strArray.length; i+=2){
+            Point point = null;
+            try{
+                int x = Integer.parseInt(strArray[i].replace("}","").replace(",","").replace("'y'","").replace("{","").replace("'x'",""));
+                int y = 0 ;
+                if (i==strArray.length-2) {
+                    String s = strArray[i + 1].replace("}", "").replace(",", "").replace("'y'", "").replace("{", "").replace("'x'", "");
+                    s = s.substring(0, s.length() - 1);
+                    y = Integer.parseInt(s);
+                }else{y = Integer.parseInt(strArray[i + 1].replace("}", "").replace(",", "").replace("'y'", "").replace("{", "").replace("'x'", ""));}
+                point = new Point(x,y);
+            }
+            catch (NumberFormatException ex){
+                point = new Point(0,0);
+            }pts1[index] = point;
+            index++;
+        }
+        return pts1;
     }
 
 }

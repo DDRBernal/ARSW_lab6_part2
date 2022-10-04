@@ -37,5 +37,9 @@ h1 {
 
 button {
     width: 250px;
+}
+
+btn-success{
+    width: 200px;
     font-size: 35px;
 }

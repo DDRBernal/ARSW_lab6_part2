@@ -61,13 +61,18 @@ table, th, td {
     </div>
 
     <div class="container_button">
-    <button class="btn btn-danger" onclick="pointerEvent.eventListener()">Create new blueprint</button>
+    <button class="btn btn-danger" onclick="PointerEvent.eventListener()">Create new blueprint</button>
     </div>
 
     <div>
         <canvas id="myCanvas" width="510" height="300" style="border: solid black 5px;"></canvas>
     </div>
     <script src="js/PointerEvent.js"></script>
+
+    <div class="container_button">
+        <button class="btn btn-success" onclick="app.addBlueprint()">Save/Update</button>
+        <button class="btn btn-warning" onclick="app.deleteBlueprint()">Delete</button>
+    </div>
 
 </head>
 <body>

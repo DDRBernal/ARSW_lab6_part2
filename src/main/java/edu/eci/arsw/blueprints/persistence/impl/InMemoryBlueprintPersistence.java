@@ -84,9 +84,11 @@ public class InMemoryBlueprintPersistence implements BlueprintsPersistence{
     }
 
     @Override
-    public void updateBlueprint(Blueprint bp, String newAutor, String bprintname) {
-        bp.setAuthor(newAutor);
-        bp.setName(bprintname);
+    public void updateBlueprint(String bpnameold, String bpautor, String newAutor, String bprintname) {
+        Blueprint bp1 = getBlueprint(bpautor,bpnameold);
+        bp1.setAuthor(newAutor);
+        bp1.setName(bprintname);
+        saveBlueprint(bp1);
     }
 }
 

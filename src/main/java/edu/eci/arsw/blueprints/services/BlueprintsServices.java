@@ -28,8 +28,8 @@ public class BlueprintsServices {
         bpp.saveBlueprint(bp);
     }
 
-    public void updateBlueprint(Blueprint bp, String newAuthor, String bprintname) throws BlueprintsPersistenceException{
-        bpp.updateBlueprint(bp,newAuthor,bprintname);
+    public void updateBlueprint(String bpnameold, String bpauthor, String newAuthor, String bprintname) throws BlueprintsPersistenceException{
+        bpp.updateBlueprint(bpnameold,bpauthor,newAuthor,bprintname);
     }
     
     public Set<Blueprint> getAllBlueprints() throws BlueprintsPersistenceException {

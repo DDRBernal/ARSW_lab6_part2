@@ -1,4 +1,14 @@
-var pointerEvent = (function () {
+var PointerEvent = (function () {
+
+    points = []
+
+    function clearPoints(){
+        points = [];
+    }
+
+    function getPoints(){
+        return points;
+    }
 
     function eventListener(){
         alert("Draw the points in the canvas and then click on save for show it!");
@@ -10,18 +20,13 @@ var pointerEvent = (function () {
                 elemTop = elem.offsetTop,
                 context = elem.getContext('2d'),
                 elements = [];
-
             // Add event listener for `click` events.
             elem.addEventListener('click', function(event) {
                 var x = event.pageX - elemLeft,
                     y = event.pageY - elemTop;
                 console.log(x, y);
-                elements.forEach(function(element) {
-                    if (y > element.top && y < element.top + element.height && x > element.left && x < element.left + element.width) {
-                    console.log("works");
-                    }
-                });
-
+                let tuple = [x,y];
+                app.setPoints(tuple);
             }, false);
 
             // Add element.
@@ -41,6 +46,7 @@ var pointerEvent = (function () {
         }
     }
     return {
-        eventListener: eventListener
+        eventListener: eventListener,
+        getPoints : getPoints
       };
 })();

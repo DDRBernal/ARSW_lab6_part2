@@ -2,7 +2,15 @@ var app = (function () {
 
   let authorName = "";
   let author;
+  let points = [];
 
+    function setPoints(tuple){
+        points.push(tuple);
+    }
+
+    function getPoints(){
+        return points;
+    }
     /**
      * This function obtains the name of the author typed in the search bar
      * also evaluate if the name is not valid or doesn't exists
@@ -13,7 +21,7 @@ var app = (function () {
        if (author === "") {
            alert("Incorrect name !");
        } else {
-           apimock.getBlueprintsByAuthor(author, (req, resp) => {
+           apiclient.getBlueprintsByAuthor(author, (req, resp) => {
                createTableData(resp);
            });
        }
@@ -28,8 +36,9 @@ var app = (function () {
        if (author === "") {
            alert("Incorrect name !");
        } else {
-        apimock.getBlueprintsByNameAndAuthor(author,name, (req, resp) => {
-                draw(resp);
+        apiclient.getBlueprintsByNameAndAuthor(author,name, (req, resp) => {
+        console.log(resp);
+             draw(resp);
          });
        }
     }
@@ -87,9 +96,52 @@ var app = (function () {
         }
     }
 
+    function addBlueprint(){
+        author = $("#author").val();
+        let bpname = prompt('Insert the name of the new bpname');
+        apiclient.addBlueprint(parseString(points),author,bpname, (req, resp) => {
+            console.log(author,resp);
+            window.setTimeout(function(){
+                getBlueprintsByNameAndAuthor(author,resp);
+            }, 600);
+        });
+        points=[];
+    }
+
+    //"{'x':140,'y':140},{'x':115,'y':115}"
+    function parseString(array){
+        let string = "";
+        console.log(array.length);
+        for (let i = 0; i<array.length; i++){
+            string += "{'x':"+array[i][0] +",'y':"+array[i][1]+"}" ;
+            if (i!=array.length-1) string+=",";
+        }
+        return string;
+    }
+
+    function updateBlueprint() {
+        let bp = [{"x":140,"y":140},{"x":115,"y":115}];
+        author = $("#author").val();
+        let bpname = "firstBlueprint";
+        apiclient.updateBlueprint(author,bpname, (req, resp) => {
+           getBlueprintsByNameAndAuthor(author,resp);
+        });
+    }
+
+    function deleteBlueprint() {
+        apiclient.deleteBlueprint(bp,author,bpname, (req, resp) => {
+            console.log(resp);
+        });
+    }
+
   return {
     getNameAuthorBlueprints: getNameAuthorBlueprints,
-    getBlueprintsByNameAndAuthor: getBlueprintsByNameAndAuthor
+    getBlueprintsByNameAndAuthor: getBlueprintsByNameAndAuthor,
+    updateBlueprint: updateBlueprint,
+    deleteBlueprint: deleteBlueprint,
+    setPoints : setPoints,
+    getPoints : getPoints,
+    addBlueprint : addBlueprint
   };
 
 })();

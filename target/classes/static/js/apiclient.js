@@ -39,8 +39,45 @@ apiclient=(function(){
                     alert("The author or the blueprint name doesn't exists !");
                 }
             );
+		},
 
-		}
+		updateBlueprint:function(callback){
+		    let points = app.getPoints();
+		    let author = "jay1";
+		    let bpname = "anotherBlueprint1";
+		    let newauthor = "jay2";
+		    let newbpname = "putblueprinttest";
+            const put_request = $.ajax({
+                url: "/blueprints/"+author+"/"+bpname,
+                type: "PUT",
+                data: '{"points":'+JSON.stringify(points)+',"bpname":'+bpname+',"author":'+author+'}',
+                contentType: "application/json",
+//                success: function (data) {
+//                    $.getScript(useSelectedModule, function () {
+//                        api.getBlueprintsByAuthor(author, (req, resp) => {
+//                            app.parceroData(resp);
+//                        });
+//                    });
+//                }
+            });
+            console.log(put_request);
+            put_request.then(function (data) {
+                callback(data);
+              }, function (error) {
+                alert("The author doesn't exists !")
+              }
+            );
+        },
+
+        addBlueprint:function(points,author,bpname,callback){
+            console.log(points);
+            const put_request = $.ajax({
+                url: "/blueprints/"+author+"/"+bpname+"/"+points,
+                type: "POST",
+                data: '{"points":'+JSON.stringify(points)+',"bpname":'+bpname+',"author":'+author+'}',
+                contentType: "application/json",
+            }); callback(null,bpname,bpname);
+        }
 	}
 
 })();
