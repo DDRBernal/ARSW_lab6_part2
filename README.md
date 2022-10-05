@@ -46,10 +46,39 @@
 	1. Hacer POST al recurso /blueprints, para crear el nuevo plano.
 	2. Hacer GET a este mismo recurso, para actualizar el listado de planos y el puntaje del usuario.
 
+El primer paso es buscar un autor que ya exista como se muestra en la imagen.
+
+![image](https://user-images.githubusercontent.com/46855679/193969696-cb413d2c-ff11-457f-a916-9adea6715a0c.png)
+
+Ahora para agregar un blueprint al autor buscado anteriormente damos click en "create new blueprint", nos saldra un pequeño mensaje indicando que podemos pintar el nuevo blueprint clickeando en el canvas los puntos que deseemos.
+
+![image](https://user-images.githubusercontent.com/46855679/193969947-21fb0a85-cdbf-4cb3-a668-77cf654e156a.png)
+
+Una vez hayamos clickeado los puntos en el canvas, damos click en *Save/update* colocaremos el nombre de nuestro blueprint a agreagar o modificar.
+
+![image](https://user-images.githubusercontent.com/46855679/193970242-a6297e8a-4915-4de1-942c-73bb476c9dd3.png)
+
+Luego se pintara nuestro blueprint.
+
+![image](https://user-images.githubusercontent.com/46855679/193969839-f9bfe5f9-c806-48b5-9063-342d822d97f6.png)
+
+
 5. Agregue el botón 'DELETE', de manera que (también con promesas):
 	* Borre el canvas.
 	* Haga DELETE del recurso correspondiente.
 	* Haga GET de los planos ahora disponibles.
+
+Si queremos borrar un blueprint del autor, solamente basta con dar click en delete.
+
+![image](https://user-images.githubusercontent.com/46855679/193970764-5ac44b18-b78c-482a-a095-c65048ecfd4c.png)
+
+Ponemos el nombre del blueprint que queremos borrar y listo!
+
+![image](https://user-images.githubusercontent.com/46855679/193970893-eafe71f1-8559-46b3-9b5b-9d59fa43b3f4.png)
+
+![image](https://user-images.githubusercontent.com/46855679/193970938-567d3c85-e240-4378-a369-bab33c2ad884.png)
+
+![image](https://user-images.githubusercontent.com/46855679/193970981-ada6a6be-b94b-4d4f-8477-f5fb47bf2771.png)
 
 ### Criterios de evaluación
 
