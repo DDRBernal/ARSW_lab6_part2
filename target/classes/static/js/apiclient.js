@@ -52,13 +52,6 @@ apiclient=(function(){
                 type: "PUT",
                 data: '{"points":'+JSON.stringify(points)+',"bpname":'+bpname+',"author":'+author+'}',
                 contentType: "application/json",
-//                success: function (data) {
-//                    $.getScript(useSelectedModule, function () {
-//                        api.getBlueprintsByAuthor(author, (req, resp) => {
-//                            app.parceroData(resp);
-//                        });
-//                    });
-//                }
             });
             console.log(put_request);
             put_request.then(function (data) {
@@ -77,7 +70,15 @@ apiclient=(function(){
                 data: '{"points":'+JSON.stringify(points)+',"bpname":'+bpname+',"author":'+author+'}',
                 contentType: "application/json",
             }); callback(null,bpname,bpname);
-        }
+        },
+
+        deleteBlueprint:function(author,bpname,callback){
+           $.ajax({
+               url: "/blueprints/"+author+"/"+bpname,
+               type: "DELETE",
+               contentType: "application/json",
+           });
+        },
 	}
 
 })();

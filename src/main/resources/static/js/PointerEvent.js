@@ -14,7 +14,6 @@ var PointerEvent = (function () {
         alert("Draw the points in the canvas and then click on save for show it!");
         const elem2 = document.getElementById('myCanvas');
         if (elem2!=undefined && elem2!==null){
-            console.log(elem2);
             var elem = document.getElementById('myCanvas'),
                 elemLeft = elem.offsetLeft,
                 elemTop = elem.offsetTop,
@@ -28,7 +27,6 @@ var PointerEvent = (function () {
                 let tuple = [x,y];
                 app.setPoints(tuple);
             }, false);
-
             // Add element.
             elements.push({
                 colour: '#FFFFFF',

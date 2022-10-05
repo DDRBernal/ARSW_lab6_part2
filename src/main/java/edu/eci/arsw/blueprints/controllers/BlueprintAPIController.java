@@ -85,8 +85,18 @@ public class BlueprintAPIController {
         }
     }
 
+    @RequestMapping(method = RequestMethod.DELETE,value = "{author}/{bpname}")
+    public ResponseEntity<?> deleteBlueprint(@PathVariable String author, @PathVariable String bpname){
+        try {
+            blueprintsServices.deleteBlueprint(author,bpname);
+            return new ResponseEntity<>(HttpStatus.ACCEPTED);
+        } catch (BluePrintNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     /**
-     *
+     * This method add the points string to an array
      * @param points
      * @return
      */

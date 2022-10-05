@@ -26,7 +26,6 @@ public class InMemoryBlueprintPersistence implements BlueprintsPersistence{
 
     private final Map<Tuple<String,String>,Blueprint> blueprints=new HashMap<>();
 
-
     public InMemoryBlueprintPersistence() {
         //load stub data
         Point[] pts1=new Point[]{new Point(140, 140),new Point(115, 115)};
@@ -89,6 +88,18 @@ public class InMemoryBlueprintPersistence implements BlueprintsPersistence{
         bp1.setAuthor(newAutor);
         bp1.setName(bprintname);
         saveBlueprint(bp1);
+    }
+
+    @Override
+    public void deleteBlueprint(String bpname, String bpauthor) {
+//        System.out.println(getBlueprint(bpname,bpauthor));
+//        System.out.println(bpname+" "+bpauthor);
+//        for (Tuple<String,String> name: blueprints.keySet()) {
+//            String key = name.toString();
+//            String value = blueprints.get(name).toString();
+//            System.out.println(key + " " + value);
+//        }
+        blueprints.remove(new Tuple<>(bpname,bpauthor),getBlueprint(bpname,bpauthor));
     }
 }
 

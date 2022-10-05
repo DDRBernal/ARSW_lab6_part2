@@ -100,18 +100,17 @@ var app = (function () {
         author = $("#author").val();
         let bpname = prompt('Insert the name of the new bpname');
         apiclient.addBlueprint(parseString(points),author,bpname, (req, resp) => {
-            console.log(author,resp);
             window.setTimeout(function(){
                 getBlueprintsByNameAndAuthor(author,resp);
             }, 600);
         });
         points=[];
+        getNameAuthorBlueprints();
     }
 
     //"{'x':140,'y':140},{'x':115,'y':115}"
     function parseString(array){
         let string = "";
-        console.log(array.length);
         for (let i = 0; i<array.length; i++){
             string += "{'x':"+array[i][0] +",'y':"+array[i][1]+"}" ;
             if (i!=array.length-1) string+=",";
@@ -129,9 +128,14 @@ var app = (function () {
     }
 
     function deleteBlueprint() {
-        apiclient.deleteBlueprint(bp,author,bpname, (req, resp) => {
-            console.log(resp);
+        author = $("#author").val();
+        let bpname = prompt('Insert the name of the blueprint you want to delete');
+        const canvas = document.getElementById('myCanvas');
+        const context = canvas.getContext('2d');
+        context.clearRect(0, 0, canvas.width, canvas.height);
+        apiclient.deleteBlueprint(author,bpname, (req, resp) => {
         });
+        getNameAuthorBlueprints();
     }
 
   return {
@@ -141,7 +145,8 @@ var app = (function () {
     deleteBlueprint: deleteBlueprint,
     setPoints : setPoints,
     getPoints : getPoints,
-    addBlueprint : addBlueprint
+    addBlueprint : addBlueprint,
+    deleteBlueprint : deleteBlueprint
   };
 
 })();

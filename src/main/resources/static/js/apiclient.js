@@ -63,14 +63,21 @@ apiclient=(function(){
         },
 
         addBlueprint:function(points,author,bpname,callback){
-            console.log(points);
             const put_request = $.ajax({
                 url: "/blueprints/"+author+"/"+bpname+"/"+points,
                 type: "POST",
                 data: '{"points":'+JSON.stringify(points)+',"bpname":'+bpname+',"author":'+author+'}',
                 contentType: "application/json",
             }); callback(null,bpname,bpname);
-        }
+        },
+
+        deleteBlueprint:function(author,bpname,callback){
+           $.ajax({
+               url: "/blueprints/"+author+"/"+bpname,
+               type: "DELETE",
+               contentType: "application/json",
+           });
+        },
 	}
 
 })();
