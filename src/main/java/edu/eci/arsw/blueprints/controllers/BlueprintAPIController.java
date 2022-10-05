@@ -62,10 +62,11 @@ public class BlueprintAPIController {
     }
 
     //@GetMapping("/blueprints/{author}/{bpname}")
-    @RequestMapping(method = RequestMethod.PUT, value="{bpauthor}/{bpnameold}/{author}/{bpname}")
-    public ResponseEntity<?> updateNewBlueprint(@PathVariable String bpnameold, @PathVariable String bpauthor, @PathVariable String author, @PathVariable String bpname){
+    @RequestMapping(method = RequestMethod.PUT, value="{author}/{bpname}/{points}")
+    public ResponseEntity<?> updateNewBlueprint(@PathVariable String author, @PathVariable String bpname,@PathVariable String points){
         try {
-            blueprintsServices.updateBlueprint(bpnameold,bpauthor,author,bpname);
+            Point[] pts1=convertStringtoObject(points);
+            blueprintsServices.updateBlueprint(author,bpname,pts1);
             return new ResponseEntity<>(HttpStatus.CREATED);
         } catch (BlueprintsPersistenceException e) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);

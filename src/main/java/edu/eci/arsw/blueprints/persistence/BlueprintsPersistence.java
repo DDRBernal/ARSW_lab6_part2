@@ -6,6 +6,7 @@
 package edu.eci.arsw.blueprints.persistence;
 
 import edu.eci.arsw.blueprints.model.Blueprint;
+import edu.eci.arsw.blueprints.model.Point;
 
 import java.util.Set;
 
@@ -34,7 +35,7 @@ public interface BlueprintsPersistence {
 
     Set<Blueprint> getBlueprintsByAuthor(String author);
 
-    void updateBlueprint(String bpname, String bpauthor, String newAutor, String bprintname);
+    void updateBlueprint(String bpautor, String bpname,Point[] points);
 
     void deleteBlueprint(String bpname, String bpauthor);
     

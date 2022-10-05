@@ -83,22 +83,17 @@ public class InMemoryBlueprintPersistence implements BlueprintsPersistence{
     }
 
     @Override
-    public void updateBlueprint(String bpnameold, String bpautor, String newAutor, String bprintname) {
-        Blueprint bp1 = getBlueprint(bpautor,bpnameold);
-        bp1.setAuthor(newAutor);
-        bp1.setName(bprintname);
-        saveBlueprint(bp1);
+    public void updateBlueprint(String bpautor, String bpname, Point[] points) {
+        System.out.println(bpautor+" "+bpname);
+        System.out.println(points);
+        Blueprint bp1 = getBlueprint(bpautor,bpname);
+        System.out.println(bp1.getPoints());
+        bp1.setPoints(points);
+        //saveBlueprint(bp1);
     }
 
     @Override
     public void deleteBlueprint(String bpname, String bpauthor) {
-//        System.out.println(getBlueprint(bpname,bpauthor));
-//        System.out.println(bpname+" "+bpauthor);
-//        for (Tuple<String,String> name: blueprints.keySet()) {
-//            String key = name.toString();
-//            String value = blueprints.get(name).toString();
-//            System.out.println(key + " " + value);
-//        }
         blueprints.remove(new Tuple<>(bpname,bpauthor),getBlueprint(bpname,bpauthor));
     }
 }

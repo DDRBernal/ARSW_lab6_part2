@@ -5,6 +5,7 @@
  */
 package edu.eci.arsw.blueprints.services;
 
+import edu.eci.arsw.blueprints.model.Point;
 import edu.eci.arsw.blueprints.persistence.BluePrintNotFoundException;
 import edu.eci.arsw.blueprints.persistence.BlueprintsPersistenceException;
 import edu.eci.arsw.blueprints.model.Blueprint;
@@ -28,8 +29,9 @@ public class BlueprintsServices {
         bpp.saveBlueprint(bp);
     }
 
-    public void updateBlueprint(String bpnameold, String bpauthor, String newAuthor, String bprintname) throws BlueprintsPersistenceException{
-        bpp.updateBlueprint(bpnameold,bpauthor,newAuthor,bprintname);
+    public void updateBlueprint(String bpautor, String bpname,Point[] points) throws BlueprintsPersistenceException{
+        System.out.println(bpautor+" "+bpname);
+        bpp.updateBlueprint( bpautor, bpname,points);
     }
     
     public Set<Blueprint> getAllBlueprints() throws BlueprintsPersistenceException {

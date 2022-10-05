@@ -13,7 +13,6 @@ apiclient=(function(){
 
 	return {
 		getBlueprintsByAuthor:function(authname,callback){
-
            const get_request = $.get({
                 url: "/blueprints/" + authname,
                 contentType: "application/json",
@@ -28,38 +27,27 @@ apiclient=(function(){
 		},
 
         getBlueprintsByNameAndAuthor:function(authname,bpname,callback){
+        console.log(authname+" "+bpname);
             const get_request = $.get({
                 url: "/blueprints/"+authname+"/"+bpname,
                 contentType: "application/json",
             });
             get_request.then(function(data) {
                 if (data===[]){callback(null,null)}
-                callback(data,data);
+                else{callback(data,data)};
                 }, function(error){
                     alert("The author or the blueprint name doesn't exists !");
                 }
             );
 		},
 
-		updateBlueprint:function(callback){
-		    let points = app.getPoints();
-		    let author = "jay1";
-		    let bpname = "anotherBlueprint1";
-		    let newauthor = "jay2";
-		    let newbpname = "putblueprinttest";
+		updateBlueprint:function(points,author,bpname,callback){
             const put_request = $.ajax({
-                url: "/blueprints/"+author+"/"+bpname,
+                url: "/blueprints/"+author+"/"+bpname+"/"+points,
                 type: "PUT",
                 data: '{"points":'+JSON.stringify(points)+',"bpname":'+bpname+',"author":'+author+'}',
                 contentType: "application/json",
-            });
-            console.log(put_request);
-            put_request.then(function (data) {
-                callback(data);
-              }, function (error) {
-                alert("The author doesn't exists !")
-              }
-            );
+            });callback(null,bpname,bpname)
         },
 
         addBlueprint:function(points,author,bpname,callback){
@@ -78,6 +66,33 @@ apiclient=(function(){
                contentType: "application/json",
            });
         },
+
+        searchBlueprintsByNameAndAuthor:function(authname,bpname,callback){
+            const get_request1 = $.get({
+                url: "/blueprints/"+authname+"/",
+                contentType: "application/json",
+            });
+            const get_request2 = $.get({
+                url: "/blueprints/"+authname+"/"+bpname,
+                contentType: "application/json",
+            });
+            let data1;
+            let data2;
+            get_request1.then(function(data) {
+                console.log(data1);
+                data1 = data;
+                }, function(error){
+                }
+            );
+            get_request2.then(function(data) {
+                console.log(data2);
+                data2 = data;
+                }, function(error){
+                }
+            );
+        },
+
+
 	}
 
 })();

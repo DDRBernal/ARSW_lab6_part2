@@ -37,7 +37,6 @@ var app = (function () {
            alert("Incorrect name !");
        } else {
         apiclient.getBlueprintsByNameAndAuthor(author,name, (req, resp) => {
-        console.log(resp);
              draw(resp);
          });
        }
@@ -99,14 +98,30 @@ var app = (function () {
     function addBlueprint(){
         author = $("#author").val();
         let bpname = prompt('Insert the name of the new bpname');
-        apiclient.addBlueprint(parseString(points),author,bpname, (req, resp) => {
-            window.setTimeout(function(){
-                getBlueprintsByNameAndAuthor(author,resp);
-            }, 600);
+        let data = "";
+        apiclient.getBlueprintsByNameAndAuthor(author,bpname, (req, resp) => {
+            data = resp;
+            console.log(typeof resp);
+
+//            if (data){
+//                apiclient.updateBlueprint(parseString(points),author,bpname, (req, resp) => {
+//                    window.setTimeout(function(){
+//                        getBlueprintsByNameAndAuthor(author,resp);
+//                    }, 600);
+//                });
+//            }
         });
+                apiclient.addBlueprint(parseString(points),author,bpname, (req, resp) => {
+                    window.setTimeout(function(){
+                        getBlueprintsByNameAndAuthor(author,resp);
+                    }, 600);
+                });
+
+
         points=[];
         getNameAuthorBlueprints();
     }
+
 
     //"{'x':140,'y':140},{'x':115,'y':115}"
     function parseString(array){
